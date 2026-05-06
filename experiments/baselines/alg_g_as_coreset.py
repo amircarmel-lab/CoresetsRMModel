@@ -33,7 +33,7 @@ import numpy as np
 
 from coreset_rm.alg_g import AlgGOutput, run_alg_g
 from coreset_rm.config import PipelineConfig
-from documentation import BaselineResult
+from base import BaselineResult
 from coreset_rm.oracles import QuadrupletOracle
 from coreset_rm.rng import RNG
 

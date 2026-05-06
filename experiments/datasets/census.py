@@ -50,7 +50,7 @@ from pathlib import Path
 
 import numpy as np
 
-from documentation import DEFAULT_CACHE, DatasetBundle, ensure_subdir
+from experiments.datasets import DEFAULT_CACHE, DatasetBundle, ensure_subdir
 
 _UCI_ID = 116  # US Census Data (1990) on UCI
 

@@ -35,11 +35,9 @@ from coreset_rm.oracles import (
     EuclideanQuadrupletOracle,
 )
 from coreset_rm.rng import RNG
-
-from documentation import ours
-from documentation import census
-from documentation import append_row
-
+from experiments.baselines import ours
+from experiments.datasets import census
+from experiments.persistence.persistence import append_row
 
 # ----------------------------------------------------------------------
 # Fixed parameters

@@ -26,7 +26,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from coreset_rm.config import PipelineConfig
-from documentation import BaselineResult
+from base import BaselineResult
 from coreset_rm.oracles import DistanceOracle
 from coreset_rm.phase1 import run_phase1_mock
 from coreset_rm.phase2 import run_phase2

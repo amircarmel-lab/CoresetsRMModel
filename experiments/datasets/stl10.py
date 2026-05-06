@@ -41,8 +41,8 @@ from pathlib import Path
 
 import numpy as np
 
-from documentation import DEFAULT_CACHE, DatasetBundle, ensure_subdir
-from documentation import encode
+from experiments.datasets import DEFAULT_CACHE, DatasetBundle, ensure_subdir
+from experiments.embeddings.image import encode
 
 CHEAP_MODEL = "mobilenet_v3_small"
 EXPENSIVE_MODEL = "dinov2_large"

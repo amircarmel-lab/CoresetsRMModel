@@ -5,7 +5,7 @@ import time
 
 import numpy as np
 
-from documentation import BaselineResult
+from base import BaselineResult
 from coreset_rm.rng import RNG
 
 logger = logging.getLogger(__name__)

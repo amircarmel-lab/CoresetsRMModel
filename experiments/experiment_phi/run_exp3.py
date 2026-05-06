@@ -60,13 +60,13 @@ from coreset_rm.oracles import (
 )
 from coreset_rm.rng import RNG
 
-from documentation import ours
-from documentation import stl10, twentynewsgroups
-from documentation import (
+from experiments.baselines import ours
+from experiments.datasets import stl10, twentynewsgroups
+from experiments.evaluation.evaluations import (
     evaluate_strong_coreset_coords,
     measure_empirical_phi,
 )
-from documentation import append_row
+from experiments.persistence.persistence import append_row
 
 
 

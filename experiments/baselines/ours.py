@@ -23,7 +23,7 @@ import numpy as np
 
 from coreset_rm.alg_g import AlgGOutput
 from coreset_rm.config import PipelineConfig
-from documentation import BaselineResult
+from base import BaselineResult
 from coreset_rm.instrumentation import Metrics
 from coreset_rm.oracles import DistanceOracle, QuadrupletOracle
 from coreset_rm.phase1 import run_phase1

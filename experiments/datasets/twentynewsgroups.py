@@ -27,8 +27,8 @@ from pathlib import Path
 
 import numpy as np
 
-from documentation import DEFAULT_CACHE, DatasetBundle, ensure_subdir
-from documentation import slugify_model_name, encode
+from experiments.datasets import DEFAULT_CACHE, DatasetBundle, ensure_subdir
+from experiments.embeddings.text import slugify_model_name, encode
 
 
 CHEAP_MODEL = "TaylorAI/bge-micro-v2"

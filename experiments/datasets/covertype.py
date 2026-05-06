@@ -27,7 +27,7 @@ from pathlib import Path
 
 import numpy as np
 
-from documentation import DEFAULT_CACHE, DatasetBundle, ensure_subdir
+from experiments.datasets import DEFAULT_CACHE, DatasetBundle, ensure_subdir
 
 _UCI_ID = 31  # Covertype on UCI
 _COORDS_FILENAME = "covertype.npy"
