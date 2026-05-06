@@ -1,9 +1,3 @@
-"""Alg-G: Coreset+ construction via a noisy quadruplet oracle.
-
-Practical implementation of Alg-G from Raychaudhury, Esmailpour, Galhotra,
-Sintos (2026), "Metric k-clustering using only Weak Comparison Oracles"
-(arXiv:2601.19333), Appendix B.
-"""
 from __future__ import annotations
 
 import math

@@ -1,7 +1,6 @@
 """Dataset loaders and shared bundle type for experiments.
 
-Every dataset module (``covertype``, ``census``, ``twentynewsgroups``,
-``stl10``) exposes a ``load()`` function returning a :class:`DatasetBundle`.
+Every dataset module exposes a ``load()`` function returning a :class:`DatasetBundle`.
 Preprocessed matrices and neural embeddings are cached under
 :data:`DEFAULT_CACHE` so that heavy one-time computations (BGE-large,
 DINOv2) are not redone on every notebook restart.
