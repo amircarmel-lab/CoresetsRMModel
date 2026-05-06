@@ -4,8 +4,13 @@ Code accompanying the NeurIPS submission. All experiments run on CPU.
 
 ## Install
 
-Python 3.10+ recommended. 
-The `bico` package pins `numpy<2.0` and will downgrade if you have numpy 2.x installed. Use a fresh virtualenv to avoid disturbing other projects.
+Python 3.10+ recommended. The `bico` package pins `numpy<2.0` and will downgrade numpy on install — use a fresh virtualenv:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate         # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
 
 ## Datasets
 
@@ -23,54 +28,54 @@ Subsequent runs hit the cache.
 
 ## Reproducing the experiments
 
-Every runner accepts `--test` for a fast smoke run (small `n`, few reps, no disk caching of weights you don't already have). Use `--test` first to confirm your install is working before launching a full run.
+Every runner accepts `--test` for a fast smoke run (small `n`, few reps). Use `--test` first to confirm your install is working before launching a full run.
 
 ### Experiment 3 — noise robustness (vs. φ)
 
 ```bash
 # smoke
-python -m experiments.experiment3_phi.run_exp3 --semi --test
+python -m experiments.experiment_phi.run_exp --semi --test
 
 # full reproduction
 for r in 0 1 2 3 4 5 6 7 8 9; do
-    python -m experiments.experiment3_phi.run_exp3 --full --rep $r
+    python -m experiments.experiment_phi.run_exp --full --rep $r
 done
-python -m experiments.experiment3_phi.run_exp3 --full --merge
+python -m experiments.experiment_phi.run_exp --full --merge
 
 # plots
-python -m experiments.experiment3_phi.plot_exp3
+python -m experiments.experiment_phi.plot_exp
 ```
 
 ### Experiment 4 — distance-query scaling vs. n
 
 ```bash
 # smoke
-python -m experiments.experiment4_scaling.run_exp4 --full --test
+python -m experiments.experiment_scaling.run_exp --full --test
 
 # full reproduction
 for r in 0 1 2 3 4 5 6 7 8 9; do
-    python -m experiments.experiment4_scaling.run_exp4 --full --exp 6 --rep $r
+    python -m experiments.experiment_scaling.run_exp --full --exp 6 --rep $r
 done
-python -m experiments.experiment4_scaling.run_exp4 --full --exp 6 --merge
+python -m experiments.experiment_scaling.run_exp --full --exp 6 --merge
 
 # plots
-python -m experiments.experiment4_scaling.plot_exp4 --exp 6
+python -m experiments.experiment_scaling.plot_exp --exp 6
 ```
 
 ### Experiment 5 — cost ratio vs. coreset size
 
 ```bash
 # smoke
-python -m experiments.experiment5_focused.run_exp5 --test
+python -m experiments.experiment_strong.run_exp --test
 
 # full reproduction
 for r in 0 1 2 3 4 5 6 7 8 9; do
-    python -m experiments.experiment5_focused.run_exp5 --rep $r
+    python -m experiments.experiment_strong.run_exp --rep $r
 done
-python -m experiments.experiment5_focused.run_exp5 --merge
+python -m experiments.experiment_strong.run_exp --merge
 
 # plots
-python -m experiments.experiment5_focused.plot_exp5
+python -m experiments.experiment_strong.plot_exp
 ```
 
 CSV outputs land under each experiment directory; plots land alongside them.
@@ -85,7 +90,7 @@ experiments/
   embeddings/                 BGE (text), DINOv2 + MobileNetV3 (image)
   evaluation/                 strong / weak coreset cost evaluation, NMI
   persistence/                CSV append helper
-  experiment3_phi/            noise-robustness experiment
-  experiment4_scaling/        scaling-with-n experiment
-  experiment5_focused/        cost-vs-size experiment
+  experiment_phi/             noise-robustness experiment
+  experiment_scaling/         scaling-with-n experiment
+  experiment_strong/          cost-vs-size experiment
 ```
