@@ -17,5 +17,4 @@ tqdm
 # Datasets
 ucimlrepo
 
-# BICO baseline (algo-hhu/bico)
 bico
