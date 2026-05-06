@@ -1,9 +1,9 @@
-"""Plot Experiment 4 results.
+"""Plot Experiment results.
 
 Reads ``census_<mode>_exp<E>[_test].csv`` from ``results/csv``. Produces:
 
-  - ``exp4_panels_exp<E>[_test].png``         — log x, linear y
-  - ``exp4_panels_exp<E>[_test]_loglog.png``  — log x, log y (slopes)
+  - ``exp_panels_exp<E>[_test].png``         — log x, linear y
+  - ``exp_panels_exp<E>[_test]_loglog.png``  — log x, log y (slopes)
 
 The x-axis is ALWAYS log-scaled because the n grid is geometric
 (BASE_N · 2^i); a linear x compresses the small-n end into a sliver.
@@ -23,9 +23,9 @@ Usage
 -----
 ::
 
-    python -m experiments.experiment4_scaling.plot_exp4 --exp 7
-    python -m experiments.experiment4_scaling.plot_exp4 --exp 5 --modes semi
-    python -m experiments.experiment4_scaling.plot_exp4 --test
+    python -m experiments.experiment_scaling.plot_exp --exp 7
+    python -m experiments.experiment_scaling.plot_exp --exp 5 --modes semi
+    python -m experiments.experiment_scaling.plot_exp --test
 """
 from __future__ import annotations
 
@@ -133,7 +133,7 @@ def load_all_csvs(
         raise ValueError(
             "The following CSVs are missing required columns and "
             "cannot be plotted:\n" + msg
-            + "\nRegenerate them with the current run_exp4.py."
+            + "\nRegenerate them with the current run_exp.py."
         )
 
     if missing:
@@ -304,12 +304,12 @@ def plot_for_run(
 
     out_paths: list[Path] = []
 
-    linear = out_dir / f"exp4_panels{suffix}.png"
+    linear = out_dir / f"exp_scaling_panels{suffix}.png"
     plot_panels(df, linear, log_y=False)
     print(f"Wrote {linear}")
     out_paths.append(linear)
 
-    loglog = out_dir / f"exp4_panels{suffix}_loglog.png"
+    loglog = out_dir / f"exp_scaling_panels{suffix}_loglog.png"
     plot_panels(df, loglog, log_y=True)
     print(f"Wrote {loglog}")
     out_paths.append(loglog)

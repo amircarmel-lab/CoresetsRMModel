@@ -1,4 +1,4 @@
-"""Experiment 3 runner: noise robustness via two quadruplet oracles.
+"""Experiment runner: noise robustness via two quadruplet oracles.
 
 Two oracles per (dataset, rep), one row per (oracle_kind, phi) pair:
 
@@ -36,10 +36,10 @@ ALG-TESTER:
 
 CLI examples::
 
-    python -m experiments.experiment3_phi.run_exp3 --full --rep 0
-    python -m experiments.experiment3_phi.run_exp3 --semi --rep 0 --tester-on
-    python -m experiments.experiment3_phi.run_exp3 --full --merge
-    python -m experiments.experiment3_phi.run_exp3 --semi --test
+    python -m experiments.experiment_phi.run_exp --full --rep 0
+    python -m experiments.experiment_phi.run_exp --semi --rep 0 --tester-on
+    python -m experiments.experiment_phi.run_exp --full --merge
+    python -m experiments.experiment_phi.run_exp --semi --test
 """
 from __future__ import annotations
 
@@ -163,7 +163,7 @@ def build_phi_grid(phi_real: float, step: float) -> list[float]:
 # ----------------------------------------------------------------------
 def setup_logging(results_dir: Path, stamp: str, mode: str, tag: str = "") -> Path:
     results_dir.mkdir(parents=True, exist_ok=True)
-    name = f"exp3_{mode}_{tag}_{stamp}.log" if tag else f"exp3_{mode}_{stamp}.log"
+    name = f"exp_{mode}_{tag}_{stamp}.log" if tag else f"exp_{mode}_{stamp}.log"
     log_path = results_dir / name
 
     root = logging.getLogger()
@@ -591,7 +591,7 @@ def merge_per_rep_csvs(
 # ----------------------------------------------------------------------
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description=("Experiment 3 runner: noise robustness via two "
+        description=("Experiment runner: noise robustness via two "
                      "quadruplet oracles (interpolated + synthetic)."),
     )
     parser.add_argument(
@@ -658,7 +658,7 @@ def main() -> None:
         t_start = time.perf_counter()
         suffix = _csv_suffix_for_mode(mode)
         log_path = setup_logging(RESULTS_DIR, stamp, mode, tag="merge")
-        logger = logging.getLogger(f"exp3_{mode}_merge")
+        logger = logging.getLogger(f"exp_{mode}_merge")
         logger.info("merge mode (suffix=%r)", suffix)
         logger.info("  datasets: %s", datasets)
         written = merge_per_rep_csvs(
@@ -680,10 +680,10 @@ def main() -> None:
     if args.rep is not None:
         tag = f"rep{args.rep}"
         log_path = setup_logging(RESULTS_DIR, stamp, mode, tag=tag)
-        logger = logging.getLogger(f"exp3_{mode}_{tag}")
+        logger = logging.getLogger(f"exp_{mode}_{tag}")
         logger.info("=" * 70)
         logger.info(
-            "Experiment 3 per-rep — rep=%d mode=%s — %s",
+            "Experiment per-rep — rep=%d mode=%s — %s",
             args.rep, mode, stamp,
         )
         logger.info("=" * 70)
@@ -709,10 +709,10 @@ def main() -> None:
 
     # --- Mode A: whole experiment -------------------------------------
     log_path = setup_logging(RESULTS_DIR, stamp, mode)
-    logger = logging.getLogger(f"exp3_{mode}")
+    logger = logging.getLogger(f"exp_{mode}")
 
     logger.info("=" * 70)
-    logger.info("Experiment 3 (%s mode) — %s", mode, stamp)
+    logger.info("Experiment (%s mode) — %s", mode, stamp)
     logger.info("=" * 70)
     logger.info("datasets:  %s", datasets)
     logger.info("cfg:       %s", asdict(cfg))
@@ -735,7 +735,7 @@ def main() -> None:
         logger.info("  %s", p)
     log_tester_banner(logger)
     log_total_elapsed_banner(logger, elapsed)
-    logger.info("Plot with:  python -m experiments.experiment3_phi.plot_exp3")
+    logger.info("Plot with:  python -m experiments.experiment_phi.plot_exp")
     logger.info("=" * 70)
 
 

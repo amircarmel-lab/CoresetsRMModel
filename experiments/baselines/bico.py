@@ -59,7 +59,7 @@ import time
 import numpy as np
 from bico import BICO
 
-from base import BaselineResult
+from experiments.baselines.base import BaselineResult
 from coreset_rm.rng import RNG
 
 logger = logging.getLogger(__name__)

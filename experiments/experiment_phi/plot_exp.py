@@ -1,4 +1,4 @@
-"""Plot Experiment 3 results.
+"""Plot Experiment results.
 
 Reads ``results/csv/text.csv`` and ``results/csv/image.csv`` (or the
 ``_test`` variants when ``--test``). Produces a one-row figure with one
@@ -86,7 +86,7 @@ def load_all_csvs(
         raise ValueError(
             "The following CSVs are missing required columns and "
             "cannot be plotted:\n" + "\n".join(msg_lines)
-            + "\nRegenerate them with the current run_exp3.py."
+            + "\nRegenerate them with the current run_exp.py."
         )
 
     if missing:
@@ -248,7 +248,7 @@ def main() -> None:
     print_tester_banner(df)
     print_coreset_size_banner(df)
 
-    out_path = args.out_dir / f"exp3_panels{suffix}.png"
+    out_path = args.out_dir / f"exp_phi_panels{suffix}.png"
     plot_panels(df, out_path)
     print(f"Wrote {out_path}")
 

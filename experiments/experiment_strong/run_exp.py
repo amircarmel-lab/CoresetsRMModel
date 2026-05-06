@@ -1,53 +1,4 @@
-"""Experiment 5 runner: cost ratio vs coreset size, single (n, k) point.
-
-A focused variant of Experiment 2: same baselines, same m-sweep shape,
-but a single dataset configuration per (dataset, method) pair —
-n=30,000, k=30, with the ``ours`` method using phi=0.15. Three
-datasets in this experiment: 20-Newsgroups, STL-10, US Census 1990.
-Each is subsampled at construction time to a hardcoded n via
-``SUBSAMPLE_SEED`` at module level so every rep sees the same subset.
-
-The ``ours`` baseline uses :class:`EuclideanQuadrupletOracle` on the
-expensive embedding (text/image) or the dataset coords (census), with
-the ``USE_TESTER_CACHE`` default left ON — at n=30K the cache is
-small (tens of MB) and amortizes the per-comparison cost of phi=0.15
-majority voting.
-
-Three execution shapes, like exp2:
-
-  Whole experiment (no --rep, no --merge):
-    Sweeps every (method, dataset, rep, m) cell sequentially in one
-    process. Writes the canonical <method>_<dataset>.csv directly.
-
-  Per-rep mode (--rep N):
-    ONE rep across all selected methods × datasets × m. Writes
-    <method>_<dataset>_rep<N>.csv per pair. Designed for cluster /
-    local fan-out.
-
-  Merge (--merge):
-    Concatenates <method>_<dataset>_rep*.csv into the canonical CSV.
-
-ALG-TESTER:
-  Off by default. Enable with --tester-on (slows alg_g substantially).
-  Smoke runs (--test) ALWAYS run with the tester off regardless of the
-  flag. Each row is tagged with the active alg_tester state.
-
-CLI examples::
-
-    # whole experiment, sequential, single process
-    python -m experiments.experiment5_focused.run_exp5
-
-    # one rep, all methods × datasets (parallel-friendly across reps)
-    python -m experiments.experiment5_focused.run_exp5 --rep 0
-
-    # merge per-rep CSVs
-    python -m experiments.experiment5_focused.run_exp5 --merge
-
-    # rerun bico end-to-end without ours
-    python -m experiments.experiment5_focused.run_exp5 --methods bico
-
-    # smoke (n=2000, 2 reps, m in {200, 500, 1000}, tester forced off)
-    python -m experiments.experiment5_focused.run_exp5 --test
+"""Experiment runner: cost ratio vs coreset size, single (n, k) point.
 """
 from __future__ import annotations
 
@@ -175,7 +126,7 @@ def make_config(mode: str) -> ExpConfig:
 # ----------------------------------------------------------------------
 def setup_logging(results_dir: Path, stamp: str, mode: str, tag: str = "") -> Path:
     results_dir.mkdir(parents=True, exist_ok=True)
-    name = f"exp5_{mode}_{tag}_{stamp}.log" if tag else f"exp5_{mode}_{stamp}.log"
+    name = f"exp_{mode}_{tag}_{stamp}.log" if tag else f"exp_{mode}_{stamp}.log"
     log_path = results_dir / name
 
     root = logging.getLogger()
@@ -719,7 +670,7 @@ def merge_per_rep_csvs(
 # ----------------------------------------------------------------------
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description=("Experiment 5: cost ratio vs coreset size at "
+        description=("Experiment : cost ratio vs coreset size at "
                      "n=30K, k=30, with ours_phi015. Datasets: text, "
                      "image, census."),
     )
@@ -765,7 +716,7 @@ def main() -> None:
     # --- Mode C: merge ------------------------------------------------
     if args.merge:
         log_path = setup_logging(RESULTS_DIR, stamp, mode, tag="merge")
-        logger = logging.getLogger(f"exp5_{mode}_merge")
+        logger = logging.getLogger(f"exp_{mode}_merge")
         logger.info("merge mode (test=%s)", args.test)
         logger.info("  methods:  %s", methods)
         logger.info("  datasets: %s", datasets)
@@ -789,10 +740,10 @@ def main() -> None:
     if args.rep is not None:
         tag = f"rep{args.rep}"
         log_path = setup_logging(RESULTS_DIR, stamp, mode, tag=tag)
-        logger = logging.getLogger(f"exp5_{mode}_{tag}")
+        logger = logging.getLogger(f"exp_{mode}_{tag}")
         logger.info("=" * 70)
         logger.info(
-            "Experiment 5 per-rep — rep=%d mode=%s — %s",
+            "Experiment  per-rep — rep=%d mode=%s — %s",
             args.rep, mode, stamp,
         )
         logger.info("=" * 70)
@@ -819,10 +770,10 @@ def main() -> None:
 
     # --- Mode A: whole experiment -------------------------------------
     log_path = setup_logging(RESULTS_DIR, stamp, mode)
-    logger = logging.getLogger(f"exp5_{mode}")
+    logger = logging.getLogger(f"exp_{mode}")
 
     logger.info("=" * 70)
-    logger.info("Experiment 5 (%s mode) — %s", mode, stamp)
+    logger.info("Experiment  (%s mode) — %s", mode, stamp)
     logger.info("=" * 70)
     logger.info("methods:   %s", methods)
     logger.info("datasets:  %s", datasets)

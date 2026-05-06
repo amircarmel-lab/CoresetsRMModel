@@ -1,4 +1,4 @@
-"""Experiment 4 runner: distance-query scaling vs n on Census 1990.
+"""Experiment runner: distance-query scaling vs n on Census 1990.
 
 See module docstring history; only the salient additions for this
 revision are listed here.
@@ -12,7 +12,7 @@ revision are listed here.
 
 CLI examples (full mode, --exp 7, extend existing rep0 with n=1M):
 
-    python -m experiments.experiment4_scaling.run_exp4 \\
+    python -m experiments.experiment_scaling.run_exp \\
         --full --exp 7 --rep 0 --n-only 1000000
 """
 from __future__ import annotations
@@ -99,7 +99,7 @@ def setup_logging(
     exp: Optional[int] = None, tag: str = "",
 ) -> Path:
     results_dir.mkdir(parents=True, exist_ok=True)
-    parts = [f"exp4_{mode}_{scope}"]
+    parts = [f"exp_{mode}_{scope}"]
     if scope == "full" and exp is not None:
         parts.append(f"exp{exp}")
     if tag:
@@ -634,7 +634,7 @@ def merge_per_rep_csvs(
 # ----------------------------------------------------------------------
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description=("Experiment 4 runner: distance-query scaling vs n "
+        description=("Experiment  runner: distance-query scaling vs n "
                      "on Census, swept by k. Modes: --semi or --full. "
                      "n grid is set by --exp E in 1..7."),
     )
@@ -703,7 +703,7 @@ def main() -> None:
         log_path = setup_logging(
             RESULTS_DIR, stamp, mode, scope, exp=exp, tag="merge",
         )
-        logger = logging.getLogger(f"exp4_{mode}_{scope}_merge")
+        logger = logging.getLogger(f"exp_{mode}_{scope}_merge")
         logger.info("merge mode=%s exp=%d test=%s", mode, exp, test)
         canonical = merge_per_rep_csvs(
             mode=mode, exp=exp, test=test, logger=logger,
@@ -730,10 +730,10 @@ def main() -> None:
         log_path = setup_logging(
             RESULTS_DIR, stamp, mode, scope, exp=exp, tag=tag,
         )
-        logger = logging.getLogger(f"exp4_{mode}_{scope}_{tag}")
+        logger = logging.getLogger(f"exp_{mode}_{scope}_{tag}")
         logger.info("=" * 70)
         logger.info(
-            "Experiment 4 per-rep — rep=%d mode=%s exp=%d scope=%s — %s",
+            "Experiment  per-rep — rep=%d mode=%s exp=%d scope=%s — %s",
             args.rep, mode, exp, scope, stamp,
         )
         logger.info("=" * 70)
@@ -767,11 +767,11 @@ def main() -> None:
 
     # --- Whole experiment --------------------------------------------
     log_path = setup_logging(RESULTS_DIR, stamp, mode, scope, exp=exp)
-    logger = logging.getLogger(f"exp4_{mode}_{scope}")
+    logger = logging.getLogger(f"exp_{mode}_{scope}")
 
     logger.info("=" * 70)
     logger.info(
-        "Experiment 4 (mode=%s, exp=%d, scope=%s) — %s",
+        "Experiment  (mode=%s, exp=%d, scope=%s) — %s",
         mode, exp, scope, stamp,
     )
     logger.info("=" * 70)

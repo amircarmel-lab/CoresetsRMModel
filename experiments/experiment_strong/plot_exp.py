@@ -1,9 +1,9 @@
-"""Plot Experiment 5 results.
+"""Plot Experiment results.
 
 Reads every ``<method>_<dataset>.csv`` under ``results/csv/`` that
 exists, produces:
 
-  - ``results/exp5_panels.png``       — 1 row × 3 datasets, one curve
+  - ``results/exp_panels.png``       — 1 row × 3 datasets, one curve
                                          per method.
   - ``results/companion_table.csv``   — at requested_m=1000, mean
                                          across reps: construction time
@@ -18,8 +18,8 @@ Usage
 -----
 ::
 
-    python -m experiments.experiment5_focused.plot_exp5
-    python -m experiments.experiment5_focused.plot_exp5 --test
+    python -m experiments.experiment_focused.plot_exp
+    python -m experiments.experiment_focused.plot_exp --test
 """
 from __future__ import annotations
 
@@ -102,7 +102,7 @@ def load_all_csvs(csv_dir: Path, test: bool = False) -> pd.DataFrame:
             "The following CSVs are missing the 'alg_tester' column "
             "and cannot be plotted:\n  - "
             + "\n  - ".join(no_tester_col)
-            + "\nRegenerate them with the current run_exp5.py."
+            + "\nRegenerate them with the current run_exp.py."
         )
 
     if missing or partial:
@@ -123,7 +123,7 @@ def load_all_csvs(csv_dir: Path, test: bool = False) -> pd.DataFrame:
     if not frames:
         raise FileNotFoundError(
             f"no CSVs matching '*{suffix}.csv' under {csv_dir}. "
-            f"Run `python -m experiments.experiment5_focused.run_exp5"
+            f"Run `python -m experiments.experiment_focused.run_exp"
             f"{' --test' if test else ''}` first."
         )
     return pd.concat(frames, ignore_index=True)
@@ -304,7 +304,7 @@ def main() -> None:
 
     print_tester_banner(df)
 
-    panel_path = args.out_dir / f"exp5_panels{suffix}.png"
+    panel_path = args.out_dir / f"exp_panels{suffix}.png"
     plot_panels(df, panel_path)
     print(f"Wrote {panel_path}")
 
