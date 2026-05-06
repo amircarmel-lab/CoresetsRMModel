@@ -1,0 +1,21 @@
+# Core scientific stack
+# bico pins numpy<2.0 — see baselines/bico.py docstring
+numpy<2.0
+pandas
+scikit-learn
+matplotlib
+
+# PyTorch (CPU is sufficient — all experiments run on CPU)
+torch
+torchvision
+
+# Embedding models
+transformers
+sentence-transformers
+tqdm
+
+# Datasets
+ucimlrepo
+
+# BICO baseline (algo-hhu/bico)
+bico
