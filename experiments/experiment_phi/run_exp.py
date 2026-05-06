@@ -24,9 +24,7 @@ Three execution shapes, selected by which flags are present:
 
   Per-rep mode (--rep N):
     Runs ONE rep across all selected datasets. Writes
-    <dataset>[_test]_rep<N>.csv. Designed for cluster fan-out: launch
-    5 jobs with --rep 0..4, then run --merge.
-
+    <dataset>[_test]_rep<N>.csv. Designed for cluster fan-out.
   Merge (--merge):
     Concatenates <dataset>[_test]_rep*.csv into the canonical CSV.
 

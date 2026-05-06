@@ -14,12 +14,6 @@ The plot reads the ``alg_tester`` column and prints a banner (stdout
 only) indicating whether ALG-TESTER was ON or OFF when the data was
 produced. Mixed states across CSVs trigger a warning.
 
-Usage
------
-::
-
-    python -m experiments.experiment_focused.plot_exp
-    python -m experiments.experiment_focused.plot_exp --test
 """
 from __future__ import annotations
 
@@ -56,9 +50,6 @@ DATASET_TITLES = {
 }
 COMPANION_REFERENCE_M = 1000
 
-# Drop rows with requested_m below this in the panel plot. Set to 0 to
-# disable. The default m sweep already starts at 200, but having the
-# guard preserves consistency with exp2 if that ever changes.
 MIN_CORESET_SIZE = 0
 
 
@@ -123,7 +114,7 @@ def load_all_csvs(csv_dir: Path, test: bool = False) -> pd.DataFrame:
     if not frames:
         raise FileNotFoundError(
             f"no CSVs matching '*{suffix}.csv' under {csv_dir}. "
-            f"Run `python -m experiments.experiment_focused.run_exp"
+            f"Run `python -m experiments.experiment_strong.run_exp"
             f"{' --test' if test else ''}` first."
         )
     return pd.concat(frames, ignore_index=True)
@@ -154,7 +145,6 @@ def print_tester_banner(df: pd.DataFrame) -> None:
 def plot_panels(df: pd.DataFrame, out_path: Path) -> None:
     if MIN_CORESET_SIZE > 0:
         # Clip on requested_m, not coreset_size: BICO returns varying
-        # actual sizes per rep (see exp2 plot for the explanation).
         df = df[df["requested_m"] >= MIN_CORESET_SIZE]
         if df.empty:
             raise ValueError(
@@ -185,7 +175,6 @@ def plot_panels(df: pd.DataFrame, out_path: Path) -> None:
             if m_sub.empty:
                 continue
             # Group by REQUESTED m, not actual coreset_size — BICO's
-            # actual size wobbles per rep (see exp2 plot for details).
             agg = m_sub.groupby("requested_m").agg(
                 coreset_size_mean=("coreset_size", "mean"),
                 ratio_mean=("cost_ratio", "mean"),

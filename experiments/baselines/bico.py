@@ -35,9 +35,7 @@ BICO computes distances internally in C++; these do not flow through
 ``coreset_rm.oracles.DistanceOracle`` and cannot be counted. We emit
 the sentinel ``-9999`` in the ``distance_queries`` field so downstream
 code can distinguish "BICO's distance usage" (unknown, not measured)
-from "zero distance queries" (uniform, alg_g_as_coreset). For Exp 2's
-companion construction-cost table, construction time is the fair
-cross-method proxy.
+from "zero distance queries"
 
 Synthesized coreset points
 --------------------------

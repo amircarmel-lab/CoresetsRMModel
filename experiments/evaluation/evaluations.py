@@ -133,8 +133,7 @@ def evaluate_coreset(
     Use when the coreset points are drawn from P and are referenced by
     index into ``full_coords``.
 
-    The returned array has shape ``(n_kmpp_seeds,)``. This is Exp 1's
-    y-axis source — the caller typically plots mean with a min/max band.
+    The returned array has shape ``(n_kmpp_seeds,)``.
 
     Parameters
     ----------
@@ -224,9 +223,7 @@ def evaluate_coreset_coords(
     return _evaluate_cost_from_coreset_coords(
         coords, weights, full_coords, k, n_kmpp_seeds, base_seed,
     )
-# ----------------------------------------------------------------------
-# Exp 2 / Exp 3A evaluation: worst-case cost ratio
-# ----------------------------------------------------------------------
+
 def _evaluate_strong_from_coreset_coords(
     coreset_coords: np.ndarray,
     coreset_weights: np.ndarray,
@@ -284,8 +281,6 @@ def evaluate_strong_coreset(
     dataset P, compute the ratio
         |cost(C, P) − cost(C, Q)| / cost(C, P),
     where Q is the weighted coreset and C is the seed's center set.
-    Return the **max** across all seeds — the Braverman-style empirical
-    ε reported in Exp 2 and Exp 3 Panel A.
 
     Use when the coreset points are drawn from P and are referenced by
     index into ``full_coords``.
@@ -387,10 +382,6 @@ def measure_empirical_phi(
     replacement. For each, asks whether d_cheap(a, b) <= d_cheap(c, d)
     versus d_expensive(a, b) <= d_expensive(c, d). Returns the fraction
     of quadruplets on which the two metrics disagree.
-
-    When the cheap metric is used to drive our quadruplet oracle and the
-    expensive metric is the ground truth, this quantity is the empirical
-    `φ` that Exp 1's setup section should report.
 
     Parameters
     ----------

@@ -56,10 +56,9 @@ _UCI_ID = 116  # US Census Data (1990) on UCI
 
 # Subsample cap. The raw dataset has ~2.46M rows; capping at 1M keeps
 # memory and runtime reasonable while letting `--exp 6` runs of
-# experiment 4 use the full available size (n_max = 15625 * 2^6 = 1M).
 # The seed is module-level (not a caller parameter) so every machine
 # produces bit-identical cached output.
-N_CAP = 2_000_000
+N_CAP = 1_000_000
 SUBSAMPLE_SEED = 0
 
 # Cache filenames embed N_CAP and SUBSAMPLE_SEED so that bumping either

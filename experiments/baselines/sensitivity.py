@@ -13,10 +13,6 @@ Caching model matches ``ours``: the kmeans++ clustering of full P
 (plus the follow-up assignment pass inside ``run_phase1_mock``) runs
 once per seed via ``prepare``; ``run_phase2`` runs per sweep point
 via ``build``.
-
-Distance queries: the oracle-counted kmeans++ plus phase1_mock's
-assignment pass. No quadruplet queries (this is a full-access
-baseline; competitors see exact distances per the Exp 2 spec).
 """
 from __future__ import annotations
 import logging

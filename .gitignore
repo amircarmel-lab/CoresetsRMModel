@@ -11,9 +11,7 @@ Thumbs.db
 *.pem
 secrets/
 credentials/
-alg_g_constants_optimizer/
 documentation/
-notebooks/
 __pycache__/
 *.py[cod]
 .venv/

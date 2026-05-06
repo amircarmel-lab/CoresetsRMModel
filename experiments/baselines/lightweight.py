@@ -16,16 +16,7 @@ One pass over P to compute the mean, then one pass to compute squared
 distances to the mean. Strictly, these are "distances from an indexed
 point to a non-indexed point (mu)", which don't map to our
 DistanceOracle abstraction (which queries between two indexed points
-in P). We compute directly from ``coords`` and report
-``distance_queries = n`` to reflect the algorithm's distance-computation
-budget for Exp 2's companion table. For a real distance-query plot
-(Exp 1), the same number is the natural entry.
-
-No prepare/build split
-----------------------
-Like uniform, lightweight has no expensive precomputation worth caching
-across a sweep — the mean + distance pass is O(n) work per call, which
-is cheap enough to redo per m.
+in P).
 """
 from __future__ import annotations
 import logging
